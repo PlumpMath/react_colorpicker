@@ -12,12 +12,16 @@
   "author": "Kurt Mueller",
   "license": "ISC",
   "devDependencies": {
+    "browserify": "^4.1.10",
     "gulp": "^3.8.1",
     "gulp-coffee": "^2.0.1",
     "gulp-coffeelint": "^0.3.3",
     "gulp-concat": "^2.2.0",
+    "gulp-haml": "0.0.8",
+    "gulp-livereload": "^2.1.0",
     "gulp-strip-debug": "^0.3.0",
     "gulp-uglify": "^0.3.0",
-    "gulp-util": "^2.2.17"
+    "gulp-util": "^2.2.17",
+    "vinyl-source-stream": "^0.1.1"
   }
 }

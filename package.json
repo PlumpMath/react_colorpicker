@@ -12,6 +12,8 @@
   "author": "Kurt Mueller",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.8.1"
+    "gulp": "^3.8.1",
+    "gulp-coffee": "^2.0.1",
+    "gulp-coffeelint": "^0.3.3"
   }
 }

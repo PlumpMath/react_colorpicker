@@ -8,7 +8,7 @@ var srcDir       = './src'
 var srcJsDir     = srcDir + '/javascripts'
 var srcCssDir    = srcDir + '/stylesheets'
 
-var srcCoffeeDir  = srcJsDir + '/coffee'
+var srcCoffeeDir  = srcDir + '/coffee'
 var destCoffeeDir = srcJsDir
 
 var destDir    = './build'
@@ -44,6 +44,24 @@ gulp.task('coffee', function() {
     .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(gulp.dest(destCoffeeDir + '/'))
 });
+
+
+// Browserify Tasks
+// ---------------------------------------------------------
+
+var browserify = require('browserify');
+var source     = require('vinyl-source-stream');
+var reactify   = require('reactify');
+
+gulp.task('browserify', function() {
+  return browserify(srcCoffeeDir + '/app.coffee')
+    .transform({ extensions: 'coffee' }, reactify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest(destJsDir + '/'))
+});
+
+
 
 
 // Production Tasks

@@ -4,11 +4,16 @@
 var gulp  = require('gulp');
 var gutil = require('gulp-util');
 
-var sourceDir   = './src'
-var sourceJsDir = sourceDir + '/scripts'
+var srcDir       = './src'
+var srcJsDir     = srcDir + '/javascripts'
+var srcCssDir    = srcDir + '/stylesheets'
 
-var destDir   = './build'
-var destJsDir = destDir + '/scripts'
+var srcCoffeeDir  = srcJsDir + '/coffee'
+var destCoffeeDir = srcJsDir
+
+var destDir    = './build'
+var destJsDir  = destDir + '/javascripts'
+var destCssDir = destDir + '/stylesheets'
 
 
 // Coffee Tasks
@@ -18,11 +23,10 @@ var destJsDir = destDir + '/scripts'
 var coffee = require('gulp-coffee');
 
 gulp.task('coffee', function() {
-  gulp.src([sourceJsDir + '/*.coffee'])
+  gulp.src([srcCoffeeDir + '/*.coffee'])
     .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulp.dest(destJsDir + '/'))
+    .pipe(gulp.dest(destCoffeeDir + '/'))
 });
-
 
 
 // Production Tasks
@@ -35,9 +39,22 @@ var uglify     = require('gulp-uglify');
 
 // JS concat, strip debugging and minify
 gulp.task('scripts', function() {
-  gulp.src(['./src/scripts/lib.js','./src/scripts/*.js'])
+  gulp.src([ srcJsDir + '/lib.js', srcJsDir + '/*.js'])
     .pipe(concat('script.js'))
     .pipe(stripDebug())
     .pipe(uglify())
-    .pipe(gulp.dest('./build/scripts/'));
+    .pipe(gulp.dest(destJsDir + '/'));
+});
+
+
+// Default Gulp Task
+// ---------------------------------------------------------
+
+gulp.task('default', ['coffee', 'scripts'], function () {
+
+  // watch the coffeescript dir
+  gulp.watch(srcCoffeeDir + '/*.coffee', ['coffee']);
+
+  // watch the coffeescript dir
+  gulp.watch(srcJsDir + '/*.js', ['scripts']);
 });

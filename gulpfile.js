@@ -1,11 +1,34 @@
-// include gulp
-var gulp = require('gulp');
+// Gulp Config
+// ---------------------------------------------------------
+
+var gulp  = require('gulp');
+var gutil = require('gulp-util');
+
+var sourceDir   = './src'
+var sourceJsDir = sourceDir + '/scripts'
+
+var destDir   = './build'
+var destJsDir = destDir + '/scripts'
+
+
+// Coffee Tasks
+// ---------------------------------------------------------
+
+// include plugins
+var coffee = require('gulp-coffee');
+
+gulp.task('coffee', function() {
+  gulp.src([sourceJsDir + '/*.coffee'])
+    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest(destJsDir + '/'))
+});
+
 
 
 // Production Tasks
 // ---------------------------------------------------------
 
-// include plug-ins
+// include plugins
 var concat     = require('gulp-concat');
 var stripDebug = require('gulp-strip-debug');
 var uglify     = require('gulp-uglify');
